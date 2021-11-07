@@ -52,6 +52,9 @@ import { AuthProvider } from './contexts/JWTContext';
 // import { AuthProvider } from './contexts/AwsCognitoContext';
 // import { AuthProvider } from './contexts/Auth0Context';
 
+//Bootstrap
+import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
+
 //
 import App from './App';
 import * as serviceWorker from './serviceWorker';

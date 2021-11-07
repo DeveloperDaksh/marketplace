@@ -23,6 +23,7 @@ const GlobalStyles = withStyles((theme) => ({
       width: '100%',
       height: '100%'
     },
+
     input: {
       '&[type=number]': {
         MozAppearance: 'textfield',

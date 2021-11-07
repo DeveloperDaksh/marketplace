@@ -55,6 +55,7 @@ export default function MainNavbar() {
   return (
     <AppBar color={isHome ? 'transparent' : 'default'} sx={{ boxShadow: 0 }}>
       <ToolbarStyle
+        className="navbar header-nav"
         disableGutters
         sx={{
           ...(isOffset && {
@@ -63,61 +64,43 @@ export default function MainNavbar() {
           })
         }}
       >
-        <Grid container
-          sx={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between'
-          }}
-        >
-          <Grid item sx={{
-            display: 'flex',
-            alignItems: 'center',
-          }}>
+        <div className="navbar-header d-flex align-items-center">
+          <RouterLink className="navbar-brand" to="/">
+            <Logo />
+          </RouterLink>
+        </div>
 
-            <RouterLink to="/" style={{ marginLeft: '2rem' }}>
-              <Logo />
-            </RouterLink>
-          </Grid>
-          <Grid item>
-
-            <MHidden width="mdDown">
-              <MenuDesktop isOffset={isOffset} isHome={isHome} navConfig={navConfig} />
-            </MHidden>
-          </Grid>
-
-          <Grid item>
-
-            <Grid container sx={{
-              alignItems: 'center', width: 'auto'
-
-            }} spacing={3}>
-              <MHidden width="mdDown">
-                <Grid item >
-                  <RouterLink style={{ textDecoration: 'none', display: 'flex', alignItems: 'center' }} to="/">
-                    <AccountCircle />
-                    Register
-                  </RouterLink>
-                </Grid>
-                <Grid item >
-                  <RouterLink style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', }} to="/">
-                    <LoginIcon />
-                    Login
-                  </RouterLink>
-                </Grid>
-                <Grid item sx={{ marginRight: '2rem' }}>
-                  <Button variant="contained" size="large" color="primary" sx={{ borderRadius: '3rem' }}>POST A PROJECT</Button>
-                </Grid>
-
-              </MHidden>
-            </Grid>
-
-          </Grid>
-          <MHidden width="mdUp">
-            <MenuMobile isOffset={isOffset} isHome={isHome} navConfig={navConfig} />
+        <div className="main-menu-wrapper">
+          <MHidden width="mdDown">
+            <MenuDesktop isOffset={isOffset} isHome={isHome} navConfig={navConfig} />
           </MHidden>
+        </div>
 
-        </Grid>
+        <MHidden width="mdDown">
+          <ul className="nav nav-header-rht" style={{ alignItems: 'center' }}>
+
+            <li >
+              <RouterLink style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', color: `${isLight ? 'black' : '#ff5b37'}` }} to="/">
+                <AccountCircle />
+                Register
+              </RouterLink>
+            </li>
+            <li style={{ marginRight: '15px', marginLeft: '15px' }}>
+              <RouterLink style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', color: `${isLight ? 'black' : '#ff5b37'}` }} to="/">
+                <LoginIcon />
+                Login
+              </RouterLink>
+            </li>
+            <li item sx={{ marginRight: '2rem' }}>
+              <Button variant="contained" size="large" color="primary" sx={{ borderRadius: '3rem' }}>POST A PROJECT</Button>
+            </li>
+          </ul>
+
+        </MHidden>
+        <MHidden width="mdUp">
+          <MenuMobile isOffset={isOffset} isHome={isHome} navConfig={navConfig} />
+        </MHidden>
+
       </ToolbarStyle>
 
       {isOffset && <ToolbarShadowStyle />}

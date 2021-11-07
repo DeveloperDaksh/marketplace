@@ -102,7 +102,7 @@ function MenuDesktopItem({ item, pathname, isHome, isOffset, onOpen, onClose }) 
           <Box
             component={Icon}
             icon={isOpen ? arrowIosUpwardFill : arrowIosDownwardFill}
-            sx={{ ml: 0.5, width: 16, height: 16 }}
+            sx={{ ml: 0.0, width: 16, height: 16 }}
           />
         </LinkStyle>
         <Grid container>
@@ -116,13 +116,13 @@ function MenuDesktopItem({ item, pathname, isHome, isOffset, onOpen, onClose }) 
                     <Box
                       component={Icon}
                       icon={nestedOpen ? arrowIosDownwardFill : {}}
-                      sx={{ ml: 0.5, width: 16, height: 16 }}
+                      sx={{ width: 16, height: 16 }}
                     />
                   </MenuItem>
                     <Divider />
                     {Boolean(nestedOpen) && option.items.map((item) => (
                       <>
-                        <MenuItem key={item["title"]} sx={{ ml: 1 }} onClick={handleClose}>{item.title}</MenuItem>
+                        <MenuItem key={item["title"]} sx={{ ml: 0 }} onClick={handleClose}>{item.title}</MenuItem>
 
                       </>
                     ))

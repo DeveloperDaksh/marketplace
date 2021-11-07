@@ -24,6 +24,15 @@ const SOCIALS = [
   { name: 'Twitter', icon: twitterFill }
 ];
 
+const SectionLine = styled('div')(() => ({
+  width: '35px',
+  height: '4px',
+  background: '#ff5b37',
+  borderRadius: '5px',
+  position: 'relative',
+  marginTop: '5px'
+}))
+
 const LINKS = [
 
   {
@@ -73,21 +82,14 @@ const RootStyle = styled('div')(({ theme }) => ({
 export default function MainFooter() {
   return (
     <RootStyle>
-      <Grid
-        container
-        justifyContent={{ xs: 'space-between', md: 'space-between' }}
-        sx={{ p: 5 }}
+      <div className="row p-5"
       >
 
-        <Grid item xs={12} md={3} lg={3} sx={{ pb: 3 }}
-        >
-          <Stack spacing={1}>
-            <Typography component="h2" variant="underline" sx={{ pb: 2 }} >
+        <div className="col-sm-12 col-md-3 col-lg-3 ">
+          <Stack spacing={2}>
+            <Typography component="h2" variant="underline" sx={{ pb: 2, fontSize: '19px' }}>
               Office Address
-              <Divider sx={{
-                width: '2rem',
-                borderBottom: '2px solid #ff5b37'
-              }} />
+              <SectionLine />
             </Typography>
 
             <Typography
@@ -104,18 +106,16 @@ export default function MainFooter() {
             </Typography>
 
           </Stack>
-        </Grid>
+        </div>
         {LINKS.map((list) => {
           const { headline, children } = list;
           return (
-            <Grid item xs={12} md={2} lg={2} sx={{ pb: 3 }}
+            <div className="col-sm-12 col-md-2 col-lg-2"
             >
               <Stack key={headline} spacing={1}>
-                <Typography component="h2" sx={{ pb: 2 }} variant="underline" >
-                  {headline}<Divider sx={{
-                    width: '2rem',
-                    borderBottom: '2px solid #ff5b37',
-                  }} />
+                <Typography component="h2" sx={{ pb: 2, fontSize: '19px' }} variant="underline" >
+                  {headline}              <SectionLine />
+
                 </Typography>
                 {
                   children.map((link) => (
@@ -132,24 +132,22 @@ export default function MainFooter() {
                   ))
                 }
               </Stack>
-            </Grid>
+            </div>
 
           );
         })}
-        <Grid item xs={12} md={3} lg={3} sx={{ pb: 3 }}
+        <div className="col-sm-12 col-md-3 col-lg-3 "
         >
           <Stack spacing={1}>
-            <Typography component="h2" variant="underline" >
+            <Typography component="h2" sx={{ pb: 2, fontSize: '19px' }} variant="underline" >
               Mobile Application
-              <Divider sx={{
-                width: '2rem',
-                borderBottom: '2px solid #ff5b37'
-              }} />
+              <SectionLine />
+
             </Typography>
 
             <Typography
               variant="p"
-              sx={{ display: 'block', pt: 2 }}
+              sx={{ display: 'block', }}
             >
               Download our App and get the latest Breaking News Alerts and latest headlines and daily articles near you.            </Typography>
 
@@ -158,39 +156,37 @@ export default function MainFooter() {
               <Grid item xs={6}><img src={GooglePlay} style={{ width: '150px', height: '100px' }} /></Grid>
             </Grid>
           </Stack>
+        </div>
+      </div>
+      <Divider className="mx-4" />
+      <Grid container sx={{ display: 'flex', alignItems: 'center', height: '100px', p: 3 }} >
+        <Grid item lg={6} md={6} xs={12} >
+          <Typography
+            component="p"
+            variant="body2"
+            sx={{
+              p: 1,
+              fontSize: 13,
+              textAlign: { xs: 'left', md: 'left' }
+            }}
+          >
+            © 2021. All rights reserved
+          </Typography>
+        </Grid>
+        <Grid item lg={6} md={6} xs={12}>
+          <Stack
+            spacing={1.5}
+            direction="row"
+            justifyContent={{ xs: 'flex-start', md: 'flex-end' }}
+          >
+            {SOCIALS.map((social) => (
+              <IconButton key={social.name} color="primary" sx={{ p: 1 }}>
+                <Icon icon={social.icon} width={16} height={16} />
+              </IconButton>
+            ))}
+          </Stack>
         </Grid>
       </Grid>
-      <Divider />
-      <Container sx={{ display: 'flex', alignItems: 'center', height: '100px' }}>
-        <Grid container  >
-          <Grid item lg={6} md={6} xs={12} >
-            <Typography
-              component="p"
-              variant="body2"
-              sx={{
-                p: 1,
-                fontSize: 13,
-                textAlign: { xs: 'left', md: 'left' }
-              }}
-            >
-              © 2021. All rights reserved
-            </Typography>
-          </Grid>
-          <Grid item lg={6} md={6} xs={12}>
-            <Stack
-              spacing={1.5}
-              direction="row"
-              justifyContent={{ xs: 'flex-start', md: 'flex-end' }}
-            >
-              {SOCIALS.map((social) => (
-                <IconButton key={social.name} color="primary" sx={{ p: 1 }}>
-                  <Icon icon={social.icon} width={16} height={16} />
-                </IconButton>
-              ))}
-            </Stack>
-          </Grid>
-        </Grid>
-      </Container>
     </RootStyle >
   );
 }

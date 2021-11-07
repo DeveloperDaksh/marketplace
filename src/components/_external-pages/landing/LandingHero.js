@@ -108,7 +108,7 @@ export default function LandingHero() {
                   value={5}
 
                 />
-                &nbsp;TRUSED BY OVER 2M+ USERS </Typography>
+                &nbsp;&nbsp;TRUSED BY OVER 2M+ USERS </Typography>
               <Typography variant="h1" sx={{ color: 'common.black' }}>
                 Get the perfect
 

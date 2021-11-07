@@ -247,7 +247,7 @@ export default function LandingMinimalHelps() {
           }}
 
           > <Typography variant="h2" sx={{ textTransform: 'uppercase', paddingBottom: '30px', mb: '25px', fontWeight: 700 }}>
-              I want to work
+              I want to <br /><span sx={{ display: 'block' }}>work</span>
               <Divider sx={{
                 width: '4rem',
                 my: 2,

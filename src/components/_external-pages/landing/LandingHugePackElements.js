@@ -1,32 +1,141 @@
 import { Link as RouterLink } from 'react-router-dom';
 // material
 import { alpha, useTheme, experimentalStyled as styled } from '@material-ui/core/styles';
-import { Box, Grid, Button, Container, Typography } from '@material-ui/core';
+import { Box, Grid, Button, Container, Typography, Stack, Divider } from '@material-ui/core';
 // routes
 import { PATH_PAGE } from '../../../routes/paths';
 //
 import { varFadeInUp, MotionInView } from '../../animate';
-
+import bg8 from './bg-08.png';
+import bg3 from './bg-03.png';
+import subImg from './subscribe.png';
+import project1 from './project-01.jpg';
 // ----------------------------------------------------------------------
 
 const RootStyle = styled('div')(({ theme }) => ({
-  padding: theme.spacing(24, 0),
-  backgroundImage:
-    theme.palette.mode === 'light'
-      ? `linear-gradient(180deg, ${alpha(theme.palette.grey[300], 0)} 0%, ${theme.palette.grey[300]} 100%)`
-      : 'none'
+  position: 'relative',
+  background: '#fff',
+  backgroundImage: `url(${bg3})`,
+  backgroundRepeat: 'no-repeat',
+  backgroundPosition: 'right top',
+  backgroundSize: '320px'
 }));
 
-const ContentStyle = styled('div')(({ theme }) => ({
-  width: '100%',
+const Projects = styled('div')(() => ({
+  padding: '80px 0',
+}));
+
+const ProjectItem = styled('div')(() => ({
+  background: '#fff',
+  border: '1px solid #ececec',
+  boxShadow: '10px 14px 5px rgb(255 204 193 / 10%)',
+  marginBottom: '30px'
+}))
+
+const ProjectContent = styled('div')(() => ({
+  margin: '0 auto',
   textAlign: 'center',
-  marginBottom: theme.spacing(10),
-  [theme.breakpoints.up('md')]: {
-    textAlign: 'left',
-    marginBottom: 0
+  width: '42%'
+}))
+
+const ProIcon = styled('div')(() => ({
+  position: 'relative',
+  '&:before': {
+    content: '""',
+    width: '1px',
+    height: '100%',
+    background: '#ECECEC',
+    margin: '0 auto',
+    top: 0,
+    bottom: 0,
+    right: 0,
+    left: 0,
+    position: 'absolute'
   }
+}))
+const ProjectImg = styled('div')(() => ({
+  overflow: 'hidden',
+  padding: '3px 3px 0 3px'
+}))
+
+const ImgStyle = styled('img')(() => ({
+  display: 'inline-block',
+  transform: "scale(1)", transition: '0.3s ease-in-out', "&:hover": { transform: "scale(1.1)" }, maxWidth: '100%',
+  height: '100%',
+  objectFit: 'cover',
 }));
 
+const ContentHead = styled('h4')(() => ({
+  fontWeight: 'bold',
+  fontSize: '14px',
+  lineHeight: '21px',
+  textTransform: 'uppercase',
+  color: '#ff5b37',
+}))
+
+const ContentSub = styled('h5')(() => ({
+  fontWeight: 600,
+  fontSize: '14px',
+  lineHeight: '21px',
+  textTransform: 'uppercase',
+  color: '#6e727d',
+}))
+
+const Subscribe = styled('div')(({ theme }) => ({
+  background: '#ff5b37',
+  padding: '80px 0',
+  position: 'relative',
+  color: '#fff',
+  backgroundImage: `url(${bg8})`,
+  backgroundRepeat: 'no-repeat',
+  backgroundPosition: 'left top'
+}));
+
+const FormInner = styled('div')(() => ({
+  padding: '3px',
+  backgroundColor: '#fffbfb',
+  borderRadius: '40px',
+  width: '100%'
+}));
+
+const InputGroup = styled('div')(() => ({
+
+}))
+const Email = styled('input')(() => ({
+  backgroundColor: '#fffbfb',
+  height: '70px',
+  fontSize: '18px',
+  color: '#1a1b1e',
+  minHeight: '46px',
+  padding: '6px 15px',
+  background: '#fffbfb',
+  borderRadius: '50px',
+  height: '70px',
+  fontSize: '18px',
+  color: '#1a1b1e'
+}));
+
+const SectionLine = styled('div')(() => ({
+  width: '35px',
+  height: '8px',
+  background: '#ff5b37',
+  borderRadius: '5px',
+  margin: 'auto',
+  position: 'relative',
+  marginBottom: '20px'
+}))
+const Submit = styled('button')(() => ({
+  backgroundColor: '#131135',
+  borderRadius: '50px!important',
+  fontWeight: 700,
+  border: '1px solid #131135',
+  margin: '3px',
+  fontSize: '15px',
+  lineHeight: '18px',
+  padding: '12px 40px',
+  textTransform: 'uppercase',
+  color: '#fff'
+}))
 const ScreenStyle = styled(MotionInView)(({ theme }) => ({
   paddingRight: 2,
   paddingBottom: 1,
@@ -82,94 +191,256 @@ export default function LandingHugePackElements() {
 
   return (
     <RootStyle>
-      <Container maxWidth="lg">
-        <Grid container spacing={5} justifyContent="center">
-          <Grid item xs={12} md={4} sx={{ display: 'flex', alignItems: 'center' }}>
-            <ContentStyle>
-              <MotionInView variants={varFadeInUp}>
-                <Typography component="p" variant="overline" sx={{ mb: 2, color: 'text.secondary' }}>
-                  Interface Starter Kit
+      <Projects>
+        <div className="container">
+          <div className="row">
+            <div className="col-12 col-md-12 mx-auto">
+              <div className="text-center " style={{ marginBottom: '50px' }}>
+                <SectionLine />
+                <Typography variant="h2" color="black">Get Inspired</Typography>
+
+                <Typography variant="h2" color="black">By Development Projects</Typography>
+
+                <Typography variant="p" sx={{ color: '#55545b', fontSize: '22px' }}>High Performing Developers To Your
+
                 </Typography>
-              </MotionInView>
-
-              <MotionInView variants={varFadeInUp}>
-                <Typography variant="h2" sx={{ mb: 3 }}>
-                  Huge pack <br />
-                  of elements
-                </Typography>
-              </MotionInView>
-
-              <MotionInView variants={varFadeInUp}>
-                <Typography
-                  sx={{
-                    mb: 5,
-                    color: isLight ? 'text.secondary' : 'common.white'
-                  }}
-                >
-                  We collected most popular elements. Menu, sliders, buttons, inputs etc. are all here. Just dive in!
-                </Typography>
-              </MotionInView>
-
-              <MotionInView variants={varFadeInUp}>
-                <Button
-                  size="large"
-                  color="inherit"
-                  variant="outlined"
-                  component={RouterLink}
-                  to={PATH_PAGE.components}
-                >
-                  View All Components
-                </Button>
-              </MotionInView>
-            </ContentStyle>
-          </Grid>
-
-          <Grid item xs={12} md={8} dir="ltr">
-            <Box
-              sx={{
-                display: 'flex',
-                alignItems: 'center',
-                position: 'relative',
-                justifyContent: 'center'
-              }}
-            >
-              {[...Array(3)].map((_, index) => (
-                <ScreenStyle
-                  key={index}
-                  threshold={0.72}
-                  variants={{
-                    ...(index === 0 && screenLeftAnimate),
-                    ...(index === 1 && screenCenterAnimate),
-                    ...(index === 2 && screenRightAnimate)
-                  }}
-                  transition={{ duration: 0.72, ease: 'easeOut' }}
-                  sx={{
-                    boxShadow: `${isRTL ? -80 : 80}px -40px 80px ${alpha(
-                      isLight ? theme.palette.grey[600] : theme.palette.common.black,
-                      0.48
-                    )}`,
-                    ...(index === 0 && {
-                      zIndex: 3,
-                      position: 'absolute'
-                    }),
-                    ...(index === 1 && { zIndex: 2 }),
-                    ...(index === 2 && {
-                      zIndex: 1,
-                      position: 'absolute',
-                      boxShadow: 'none'
-                    })
-                  }}
-                >
-                  <img
-                    alt={`screen ${index + 1}`}
-                    src={`/static/home/screen_${isLight ? 'light' : 'dark'}_${index + 1}.png`}
-                  />
-                </ScreenStyle>
-              ))}
-            </Box>
-          </Grid>
-        </Grid>
-      </Container>
+              </div>
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-lg-3 col-md-6 col-sm-6"><ProjectItem><ProjectImg><a href="#"><ImgStyle src={project1} alt="" className="img-fluid" /></a></ProjectImg>
+              <div className="d-flex justify-content-between align-items-center"><ProjectContent>
+                <ContentHead>45</ContentHead>
+                <ContentSub style={{}} className="text-uppercase">android apps</ContentSub>
+              </ProjectContent>
+                <ProIcon><div style={{
+                  position: 'relative',
+                  width: '48px',
+                  height: '48px',
+                  borderRadius: '50%',
+                  background: 'transparent',
+                  border: 0,
+                  margin: '15px 0',
+                  display: 'inline-flex',
+                  justifyContent: 'center',
+                  alignItems: 'center'
+                }}></div></ProIcon>
+                <ProjectContent>
+                  <ContentHead>20</ContentHead>
+                  <ContentSub>developers</ContentSub>
+                </ProjectContent></div>
+            </ProjectItem></div>
+            <div className="col-lg-3 col-md-6 col-sm-6"><ProjectItem><ProjectImg><a href="#"><ImgStyle src={project1} alt="" className="img-fluid" /></a></ProjectImg>
+              <div className="d-flex justify-content-between align-items-center"><ProjectContent>
+                <ContentHead>45</ContentHead>
+                <ContentSub style={{}} className="text-uppercase">android apps</ContentSub>
+              </ProjectContent>
+                <ProIcon><div style={{
+                  position: 'relative',
+                  width: '48px',
+                  height: '48px',
+                  borderRadius: '50%',
+                  background: 'transparent',
+                  border: 0,
+                  margin: '15px 0',
+                  display: 'inline-flex',
+                  justifyContent: 'center',
+                  alignItems: 'center'
+                }}></div></ProIcon>
+                <ProjectContent>
+                  <ContentHead>20</ContentHead>
+                  <ContentSub>developers</ContentSub>
+                </ProjectContent></div>
+            </ProjectItem></div>
+            <div className="col-lg-3 col-md-6 col-sm-6"><ProjectItem><ProjectImg><a href="#"><ImgStyle src={project1} alt="" className="img-fluid" /></a></ProjectImg>
+              <div className="d-flex justify-content-between align-items-center"><ProjectContent>
+                <ContentHead>45</ContentHead>
+                <ContentSub style={{}} className="text-uppercase">android apps</ContentSub>
+              </ProjectContent>
+                <ProIcon><div style={{
+                  position: 'relative',
+                  width: '48px',
+                  height: '48px',
+                  borderRadius: '50%',
+                  background: 'transparent',
+                  border: 0,
+                  margin: '15px 0',
+                  display: 'inline-flex',
+                  justifyContent: 'center',
+                  alignItems: 'center'
+                }}></div></ProIcon>
+                <ProjectContent>
+                  <ContentHead>20</ContentHead>
+                  <ContentSub>developers</ContentSub>
+                </ProjectContent></div>
+            </ProjectItem></div>
+            <div className="col-lg-3 col-md-6 col-sm-6"><ProjectItem><ProjectImg><a href="#"><ImgStyle src={project1} alt="" className="img-fluid" /></a></ProjectImg>
+              <div className="d-flex justify-content-between align-items-center"><ProjectContent>
+                <ContentHead>45</ContentHead>
+                <ContentSub style={{}} className="text-uppercase">android apps</ContentSub>
+              </ProjectContent>
+                <ProIcon><div style={{
+                  position: 'relative',
+                  width: '48px',
+                  height: '48px',
+                  borderRadius: '50%',
+                  background: 'transparent',
+                  border: 0,
+                  margin: '15px 0',
+                  display: 'inline-flex',
+                  justifyContent: 'center',
+                  alignItems: 'center'
+                }}></div></ProIcon>
+                <ProjectContent>
+                  <ContentHead>20</ContentHead>
+                  <ContentSub>developers</ContentSub>
+                </ProjectContent></div>
+            </ProjectItem></div>
+            <div className="col-lg-3 col-md-6 col-sm-6"><ProjectItem><ProjectImg><a href="#"><ImgStyle src={project1} alt="" className="img-fluid" /></a></ProjectImg>
+              <div className="d-flex justify-content-between align-items-center"><ProjectContent>
+                <ContentHead>45</ContentHead>
+                <ContentSub style={{}} className="text-uppercase">android apps</ContentSub>
+              </ProjectContent>
+                <ProIcon><div style={{
+                  position: 'relative',
+                  width: '48px',
+                  height: '48px',
+                  borderRadius: '50%',
+                  background: 'transparent',
+                  border: 0,
+                  margin: '15px 0',
+                  display: 'inline-flex',
+                  justifyContent: 'center',
+                  alignItems: 'center'
+                }}></div></ProIcon>
+                <ProjectContent>
+                  <ContentHead>20</ContentHead>
+                  <ContentSub>developers</ContentSub>
+                </ProjectContent></div>
+            </ProjectItem></div>
+            <div className="col-lg-3 col-md-6 col-sm-6"><ProjectItem><ProjectImg><a href="#"><ImgStyle src={project1} alt="" className="img-fluid" /></a></ProjectImg>
+              <div className="d-flex justify-content-between align-items-center"><ProjectContent>
+                <ContentHead>45</ContentHead>
+                <ContentSub style={{}} className="text-uppercase">android apps</ContentSub>
+              </ProjectContent>
+                <ProIcon><div style={{
+                  position: 'relative',
+                  width: '48px',
+                  height: '48px',
+                  borderRadius: '50%',
+                  background: 'transparent',
+                  border: 0,
+                  margin: '15px 0',
+                  display: 'inline-flex',
+                  justifyContent: 'center',
+                  alignItems: 'center'
+                }}></div></ProIcon>
+                <ProjectContent>
+                  <ContentHead>20</ContentHead>
+                  <ContentSub>developers</ContentSub>
+                </ProjectContent></div>
+            </ProjectItem></div>
+            <div className="col-lg-3 col-md-6 col-sm-6"><ProjectItem><ProjectImg><a href="#"><ImgStyle src={project1} alt="" className="img-fluid" /></a></ProjectImg>
+              <div className="d-flex justify-content-between align-items-center"><ProjectContent>
+                <ContentHead>45</ContentHead>
+                <ContentSub style={{}} className="text-uppercase">android apps</ContentSub>
+              </ProjectContent>
+                <ProIcon><div style={{
+                  position: 'relative',
+                  width: '48px',
+                  height: '48px',
+                  borderRadius: '50%',
+                  background: 'transparent',
+                  border: 0,
+                  margin: '15px 0',
+                  display: 'inline-flex',
+                  justifyContent: 'center',
+                  alignItems: 'center'
+                }}></div></ProIcon>
+                <ProjectContent>
+                  <ContentHead>20</ContentHead>
+                  <ContentSub>developers</ContentSub>
+                </ProjectContent></div>
+            </ProjectItem></div>
+            <div className="col-lg-3 col-md-6 col-sm-6"><ProjectItem><ProjectImg><a href="#"><ImgStyle src={project1} alt="" className="img-fluid" /></a></ProjectImg>
+              <div className="d-flex justify-content-between align-items-center"><ProjectContent>
+                <ContentHead>45</ContentHead>
+                <ContentSub style={{}} className="text-uppercase">android apps</ContentSub>
+              </ProjectContent>
+                <ProIcon><div style={{
+                  position: 'relative',
+                  width: '48px',
+                  height: '48px',
+                  borderRadius: '50%',
+                  background: 'transparent',
+                  border: 0,
+                  margin: '15px 0',
+                  display: 'inline-flex',
+                  justifyContent: 'center',
+                  alignItems: 'center'
+                }}></div></ProIcon>
+                <ProjectContent>
+                  <ContentHead>20</ContentHead>
+                  <ContentSub>developers</ContentSub>
+                </ProjectContent></div>
+            </ProjectItem></div>
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-md-12 text-center">
+            <div style={{ marginBottom: '20px' }}>
+              <a href="project" class="btn" style={{
+                background: '#131135',
+                border: '3px solid #131135',
+                borderRadius: '50px',
+                color: '#FFF5F3',
+                fontWeight: 'bold',
+                textTransform: 'uppercase'
+              }}>SEE ALL PROJECT</a>
+            </div>
+          </div>
+        </div>
+      </Projects>
+      <Subscribe>
+        <div className="container-fluid" >
+          <div className="row align-items-center">
+            <div className="col-md-4"><img src={subImg} class="img-fluid" alt="subscribe" /></div>
+            <div className="col-md-6">
+              <h3 className="mb-3" style={{
+                fontWeight: 700,
+                fontSize: '42px',
+                color: '#fff',
+                marginBottom: '15px'
+              }}>Subscribe To Get Discounts, Updates &amp; More</h3>
+              <p className="mb-3" style={{
+                fontSize: '18px',
+                color: '#fff',
+                marginBottom: '30px'
+              }}>Monthly product updates, industry news and more!</p>
+              <form action="#">
+                <FormInner>
+                  <InputGroup className="input-group"><input type="email" style={{
+                    backgroundColor: '#fffbfb',
+                    height: '70px',
+                    fontSize: '18px',
+                    color: '#1a1b1e',
+                    minHeight: '46px',
+                    padding: '6px 15px',
+                    background: '#fffbfb',
+                    borderRadius: '50px',
+                    border: '0px',
+                    height: '70px',
+                    fontSize: '18px',
+                    color: '#1a1b1e'
+                  }} className="form-control" placeholder="Enter Email Address" /><div class="input-group-append d-flex">
+                      <Submit type="submit">Submit</Submit>
+                    </div></InputGroup>
+                </FormInner>
+              </form>
+            </div>
+          </div>
+        </div>
+      </Subscribe>
     </RootStyle>
   );
 }
