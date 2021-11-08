@@ -2,7 +2,6 @@ import PropTypes from 'prop-types';
 // material
 import { useTheme } from '@material-ui/core/styles';
 import { Box } from '@material-ui/core';
-
 // ----------------------------------------------------------------------
 
 Logo.propTypes = {
@@ -16,8 +15,8 @@ export default function Logo({ sx }) {
   const PRIMARY_DARK = theme.palette.primary.dark;
 
   return (
-    <Box >
-      <img src="static/logo.png" />
+    <Box sx={{ margin: 'auto' }}>
+      <img style={{ margin: 'auto' }} src="/static/logo.png" />
 
     </Box>
   );

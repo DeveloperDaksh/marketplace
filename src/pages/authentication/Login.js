@@ -13,10 +13,12 @@ import Page from '../../components/Page';
 import { MHidden } from '../../components/@material-extend';
 import { LoginForm } from '../../components/authentication/login';
 import AuthFirebaseSocials from '../../components/authentication/AuthFirebaseSocial';
+import Logo from '../../components/Logo';
 
 // ----------------------------------------------------------------------
 
 const RootStyle = styled(Page)(({ theme }) => ({
+  minHeight: '854.5px',
   [theme.breakpoints.up('md')]: {
     display: 'flex'
   }
@@ -32,7 +34,7 @@ const SectionStyle = styled(Card)(({ theme }) => ({
 }));
 
 const ContentStyle = styled('div')(({ theme }) => ({
-  maxWidth: 480,
+  maxWidth: 720,
   margin: 'auto',
   display: 'flex',
   minHeight: '100vh',
@@ -57,37 +59,31 @@ export default function Login() {
   return (
     <RootStyle title="Login | Minimal-UI">
       <AuthLayout>
-        Don’t have an account? &nbsp;
-        <Link underline="none" variant="subtitle2" component={RouterLink} to={PATH_AUTH.register}>
-          Get started
-        </Link>
+
       </AuthLayout>
 
-      <MHidden width="mdDown">
-        <SectionStyle>
-          <Typography variant="h3" sx={{ px: 5, mt: 10, mb: 5 }}>
-            Hi, Welcome Back
-          </Typography>
-          <img src="/static/illustrations/illustration_login.png" alt="login" />
-        </SectionStyle>
-      </MHidden>
 
-      <Container maxWidth="sm">
+
+      <Container maxWidth="md" className="px-3">
+
         <ContentStyle>
-          <Stack direction="row" alignItems="center" sx={{ mb: 5 }}>
+
+          <Stack direction="row" alignItems="center" sx={{ mb: 5, textAlign: 'center' }}>
+
             <Box sx={{ flexGrow: 1 }}>
+              <Logo />
+
               <Typography variant="h4" gutterBottom>
-                Sign in to Minimal
+                Welcome Back
               </Typography>
-              <Typography sx={{ color: 'text.secondary' }}>Enter your details below.</Typography>
+              <p>Don't miss your next opportunity. Sign in to stay updated on your professional world.
+
+              </p>
             </Box>
 
-            <Tooltip title={method}>
-              <Box component="img" src={`/static/auth/ic_${method}.png`} sx={{ width: 32, height: 32 }} />
-            </Tooltip>
+
           </Stack>
 
-          {method === 'firebase' && <AuthFirebaseSocials />}
 
           <Alert severity="info" sx={{ mb: 3 }}>
             Use email : <strong>demo@minimals.cc</strong> / password :<strong>&nbsp;demo1234</strong>
@@ -95,10 +91,11 @@ export default function Login() {
 
           {method !== 'auth0' ? (
             <LoginForm />
-          ) : (
+          ) : (<>
             <Button fullWidth size="large" type="submit" variant="contained" onClick={handleLoginAuth0}>
               Login
             </Button>
+          </>
           )}
 
           <MHidden width="smUp">

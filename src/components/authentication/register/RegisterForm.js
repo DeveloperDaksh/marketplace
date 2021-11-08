@@ -15,6 +15,7 @@ import useIsMountedRef from '../../../hooks/useIsMountedRef';
 //
 import { MIconButton } from '../../@material-extend';
 
+
 // ----------------------------------------------------------------------
 
 export default function RegisterForm() {
@@ -24,23 +25,23 @@ export default function RegisterForm() {
   const [showPassword, setShowPassword] = useState(false);
 
   const RegisterSchema = Yup.object().shape({
-    firstName: Yup.string().min(2, 'Too Short!').max(50, 'Too Long!').required('First name required'),
-    lastName: Yup.string().min(2, 'Too Short!').max(50, 'Too Long!').required('Last name required'),
+    username: Yup.string().min(4, 'Too Short!').max(50, 'Too Long!').required('Username is required'),
     email: Yup.string().email('Email must be a valid email address').required('Email is required'),
-    password: Yup.string().required('Password is required')
+    password: Yup.string().min(6, 'Too Short!').max(256, 'Too Long!').required('Password is required').oneOf([Yup.ref('repassword')]),
+    repassword: Yup.string().required('Password is required').oneOf([Yup.ref('password')])
   });
 
   const formik = useFormik({
     initialValues: {
-      firstName: '',
-      lastName: '',
+      username: '',
       email: '',
-      password: ''
+      password: '',
+      repassword: ''
     },
     validationSchema: RegisterSchema,
     onSubmit: async (values, { setErrors, setSubmitting }) => {
       try {
-        await register(values.email, values.password, values.firstName, values.lastName);
+        await register(values.email, values.password, values.username);
         enqueueSnackbar('Register success', {
           variant: 'success',
           action: (key) => (
@@ -73,19 +74,13 @@ export default function RegisterForm() {
           <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
             <TextField
               fullWidth
-              label="First name"
-              {...getFieldProps('firstName')}
-              error={Boolean(touched.firstName && errors.firstName)}
-              helperText={touched.firstName && errors.firstName}
+              label="Username"
+              {...getFieldProps('username')}
+              error={Boolean(touched.username && errors.username)}
+              helperText={touched.username && errors.username}
             />
 
-            <TextField
-              fullWidth
-              label="Last name"
-              {...getFieldProps('lastName')}
-              error={Boolean(touched.lastName && errors.lastName)}
-              helperText={touched.lastName && errors.lastName}
-            />
+
           </Stack>
 
           <TextField
@@ -117,11 +112,30 @@ export default function RegisterForm() {
             helperText={touched.password && errors.password}
           />
 
-          <LoadingButton fullWidth size="large" type="submit" variant="contained" loading={isSubmitting}>
-            Register
+          <TextField
+            fullWidth
+            autoComplete="confirm-password"
+            type={showPassword ? 'text' : 'password'}
+            label="Confirm password"
+            {...getFieldProps('repassword')}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton edge="end" onClick={() => setShowPassword((prev) => !prev)}>
+                    <Icon icon={showPassword ? eyeFill : eyeOffFill} />
+                  </IconButton>
+                </InputAdornment>
+              )
+            }}
+            error={Boolean(touched.password && errors.password)}
+            helperText={touched.password && errors.password}
+          />
+          <LoadingButton fullWidth size="large" className="text-uppercase" type="submit" variant="contained" loading={isSubmitting}>
+            Agree to join
           </LoadingButton>
         </Stack>
       </Form>
+
     </FormikProvider>
   );
 }

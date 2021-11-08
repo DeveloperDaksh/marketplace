@@ -1,7 +1,9 @@
 import { Link as RouterLink } from 'react-router-dom';
+import { useState } from 'react';
 // material
 import { experimentalStyled as styled } from '@material-ui/core/styles';
-import { Box, Card, Link, Container, Typography, Tooltip } from '@material-ui/core';
+import { Box, Card, Stack, Link, Container, Typography, Tooltip, FormControlLabel, Checkbox } from '@material-ui/core';
+import { Nav, NavItem, NavLink } from 'reactstrap';
 // hooks
 import useAuth from '../../hooks/useAuth';
 // routes
@@ -13,6 +15,7 @@ import Page from '../../components/Page';
 import { MHidden } from '../../components/@material-extend';
 import { RegisterForm } from '../../components/authentication/register';
 import AuthFirebaseSocials from '../../components/authentication/AuthFirebaseSocial';
+import Logo from '../../components/Logo';
 
 // ----------------------------------------------------------------------
 
@@ -32,7 +35,7 @@ const SectionStyle = styled(Card)(({ theme }) => ({
 }));
 
 const ContentStyle = styled('div')(({ theme }) => ({
-  maxWidth: 480,
+  maxWidth: 720,
   margin: 'auto',
   display: 'flex',
   minHeight: '100vh',
@@ -45,9 +48,18 @@ const ContentStyle = styled('div')(({ theme }) => ({
 
 export default function Register() {
   const { method } = useAuth();
+  const [activeTab, setActive] = useState('freelancer');
+  const navLink = {
+    background: '#fff',
+    borderRadius: '3px',
+    color: '#FF5B37',
+    border: '1px solid #FF5B37',
+    padding: '0.75rem 1rem'
+  }
 
   return (
     <RootStyle title="Register | Minimal-UI">
+
       <AuthLayout>
         Already have an account? &nbsp;
         <Link underline="none" variant="subtitle2" component={RouterLink} to={PATH_AUTH.login}>
@@ -55,40 +67,67 @@ export default function Register() {
         </Link>
       </AuthLayout>
 
-      <MHidden width="mdDown">
-        <SectionStyle>
-          <Typography variant="h3" sx={{ px: 5, mt: 10, mb: 5 }}>
-            Manage the job more effectively with Minimal
-          </Typography>
-          <img alt="register" src="/static/illustrations/illustration_register.png" />
-        </SectionStyle>
-      </MHidden>
-
       <Container>
         <ContentStyle>
-          <Box sx={{ mb: 5, display: 'flex', alignItems: 'center' }}>
-            <Box sx={{ flexGrow: 1 }}>
-              <Typography variant="h4" gutterBottom>
-                Get started absolutely free.
-              </Typography>
-              <Typography sx={{ color: 'text.secondary' }}>Free forever. No credit card needed.</Typography>
-            </Box>
-            <Tooltip title={(method === 'firebase' && 'Firebase') || (method === 'cognito' && 'Cognito') || 'JWT'}>
-              <Box
-                component="img"
-                src={`/static/auth/${
-                  (method === 'firebase' && 'ic_firebase') || (method === 'cognito' && 'ic_cognito') || 'ic_jwt'
-                }.png`}
-                sx={{ width: 32, height: 32 }}
-              />
-            </Tooltip>
-          </Box>
+          <Stack direction="row" alignItems="center" sx={{ mb: 5, textAlign: 'center' }}>
 
-          {method === 'firebase' && <AuthFirebaseSocials />}
+            <Box sx={{ flexGrow: 1 }}>
+              <Logo />
+
+              <Typography variant="h4" gutterBottom>
+                Join Kofejob
+              </Typography>
+              <p>
+                Make the most of your professional life
+              </p>
+              <div>
+                <Nav pills className="justify-content-between">
+                  <NavItem className="flex-grow-1 mx-2" >
+                    <NavLink
+                      href="#"
+                      style={activeTab === 'freelancer' ? {
+                        color: '#fff',
+                        backgroundColor: '#FF5B37',
+                        border: '1px solid #FF5B37',
+                        padding: '0.75rem 1rem'
+                      } : navLink}
+                      onClick={function noRefCheck() {
+                        setActive('freelancer')
+                      }}
+                    >
+                      Freelance
+                    </NavLink>
+
+                  </NavItem>
+                  <NavItem className="flex-grow-1 mx-2" >
+                    <NavLink
+                      href="#"
+                      style={activeTab === 'company' ? {
+                        color: '#fff',
+                        backgroundColor: '#FF5B37',
+                        border: '1px solid #FF5B37',
+                        padding: '0.75rem 1rem'
+                      } : navLink}
+                      onClick={function noRefCheck() {
+                        setActive('company')
+                      }}
+                    >
+                      Company
+                    </NavLink>
+
+                  </NavItem>
+                </Nav>
+              </div>
+            </Box>
+
+
+          </Stack>
+
 
           <RegisterForm />
 
-          <Typography variant="body2" align="center" sx={{ color: 'text.secondary', mt: 3 }}>
+          <Typography variant="body2" align="left" sx={{ color: 'text.secondary', mt: 3 }}>
+            <Checkbox checked={true} />
             By registering, I agree to Minimal&nbsp;
             <Link underline="always" sx={{ color: 'text.primary' }}>
               Terms of Service
@@ -100,6 +139,7 @@ export default function Register() {
             .
           </Typography>
 
+          <AuthFirebaseSocials />
           <MHidden width="smUp">
             <Typography variant="subtitle2" sx={{ mt: 3, textAlign: 'center' }}>
               Already have an account?&nbsp;

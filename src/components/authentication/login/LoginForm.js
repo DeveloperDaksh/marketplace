@@ -26,6 +26,7 @@ import useAuth from '../../../hooks/useAuth';
 import useIsMountedRef from '../../../hooks/useIsMountedRef';
 //
 import { MIconButton } from '../../@material-extend';
+import AuthFirebaseSocials from '../AuthFirebaseSocial';
 
 // ----------------------------------------------------------------------
 
@@ -120,14 +121,25 @@ export default function LoginForm() {
             label="Remember me"
           />
 
-          <Link component={RouterLink} variant="subtitle2" to={PATH_AUTH.resetPassword}>
-            Forgot password?
-          </Link>
+
         </Stack>
 
         <LoadingButton fullWidth size="large" type="submit" variant="contained" loading={isSubmitting}>
           Login
         </LoadingButton>
+        <AuthFirebaseSocials />
+
+        <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ my: 2 }}>
+          <Link component={RouterLink} variant="subtitle2" to={PATH_AUTH.resetPassword}>
+            Forgot password?
+          </Link>
+          <p>
+            New to KofeJob? &nbsp;
+            <Link component={RouterLink} variant="subtitle2" to={PATH_AUTH.resetPassword}>
+              Click Here
+            </Link>
+          </p>
+        </Stack>
       </Form>
     </FormikProvider>
   );
