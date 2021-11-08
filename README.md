@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## 1.install
@@ -40,3 +41,11 @@ Your app is ready to be deployed.
 ## User Guide
 
 You can find detailed instructions on using Create React App and many tips in [its documentation](https://facebook.github.io/create-react-app/).
+=======
+# marketplace
+Marketplace project
+
+1. npm i
+2. npm start
+3. enjoy!
+>>>>>>> 3ff4ea0ef54938a5b8f2c4c492cdc1b664d957d0
