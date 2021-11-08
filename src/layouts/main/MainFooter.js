@@ -74,6 +74,7 @@ const RootStyle = styled('div')(({ theme }) => ({
   position: 'relative',
   backgroundImage: `url(${bg})`,
   color: '#ffff',
+  overflow: 'hidden'
 }));
 
 
@@ -136,7 +137,7 @@ export default function MainFooter() {
 
           );
         })}
-        <div className="col-sm-12 col-md-3 col-lg-3 "
+        <div className="col-sm-12 col-md-3 col-lg-3"
         >
           <Stack spacing={1}>
             <Typography component="h2" sx={{ pb: 2, fontSize: '19px' }} variant="underline" >
@@ -158,7 +159,7 @@ export default function MainFooter() {
           </Stack>
         </div>
       </div>
-      <Divider className="mx-4" />
+      <Divider className="mx-5" />
       <Grid container sx={{ display: 'flex', alignItems: 'center', height: '100px', p: 3 }} >
         <Grid item lg={6} md={6} xs={12} >
           <Typography

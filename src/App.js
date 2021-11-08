@@ -12,12 +12,12 @@ import LoadingScreen from './components/LoadingScreen';
 import GoogleAnalytics from './components/GoogleAnalytics';
 import NotistackProvider from './components/NotistackProvider';
 import ThemePrimaryColor from './components/ThemePrimaryColor';
+import { firebaseConfig } from './config';
 
 // ----------------------------------------------------------------------
 
 export default function App() {
   const { isInitialized } = useAuth();
-
   return (
     <ThemeConfig>
       <ThemePrimaryColor>
