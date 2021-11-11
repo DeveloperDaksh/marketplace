@@ -68,12 +68,29 @@ function AuthProvider({ children }) {
     const initialize = async () => {
       try {
         const accessToken = window.localStorage.getItem('accessToken');
+        const userId = sessionStorage.getItem('userId');
+        const userEmail = sessionStorage.getItem('userEmail');
+        const userName = sessionStorage.getItem('userName');
 
         if (accessToken && isValidToken(accessToken)) {
           setSession(accessToken);
 
-          const response = await axios.get('/api/account/my-account');
-          const { user } = response.data;
+          const user = {
+            id: userId,
+            displayName: userName,
+            email: userEmail,
+            password: '###########',
+            photoURL: '/static/mock-images/avatars/avatar_default.jpg',
+            phoneNumber: '',
+            country: '',
+            address: '',
+            state: '',
+            city: '',
+            zipCode: '',
+            about: '',
+            role: 'admin',
+            isPublic: true
+          };
 
           dispatch({
             type: 'INITIALIZE',
@@ -145,9 +162,9 @@ function AuthProvider({ children }) {
     dispatch({ type: 'LOGOUT' });
   };
 
-  const resetPassword = () => {};
+  const resetPassword = () => { };
 
-  const updateProfile = () => {};
+  const updateProfile = () => { };
 
   return (
     <AuthContext.Provider

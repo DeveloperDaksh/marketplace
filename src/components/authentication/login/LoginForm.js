@@ -7,6 +7,8 @@ import { Icon } from '@iconify/react';
 import eyeFill from '@iconify/icons-eva/eye-fill';
 import closeFill from '@iconify/icons-eva/close-fill';
 import eyeOffFill from '@iconify/icons-eva/eye-off-fill';
+import { useNavigate } from 'react-router-dom';
+
 // material
 import {
   Link,
@@ -22,19 +24,72 @@ import { LoadingButton } from '@material-ui/lab';
 // routes
 import { PATH_AUTH } from '../../../routes/paths';
 // hooks
-import useAuth from '../../../hooks/useAuth';
+//import useAuth from '../../../hooks/useAuth';
 import useIsMountedRef from '../../../hooks/useIsMountedRef';
 //
 import { MIconButton } from '../../@material-extend';
 import AuthFirebaseSocials from '../AuthFirebaseSocial';
-
+import { firebaseConfig } from '../../../config';
+import { initializeApp } from 'firebase/app';
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 // ----------------------------------------------------------------------
+import { setSession, sign } from '../../../utils/jwt';
+
 
 export default function LoginForm() {
-  const { login } = useAuth();
+  let history = useNavigate();
+
+  //const { login } = useAuth();
   const isMountedRef = useIsMountedRef();
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
   const [showPassword, setShowPassword] = useState(false);
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth()
+
+  const login = async (auth, email, password) => {
+    signInWithEmailAndPassword(auth, email, password).then((userCredential) => {
+      // Signed in 
+      const user = userCredential.user;
+
+
+      const accessToken = sign({ userId: user.uid }, 'gahaoaapkekdmvb', {
+        expiresIn: '5 days'
+      });
+      setSession(accessToken);
+
+      sessionStorage.setItem("userId", user.uid);
+      sessionStorage.setItem("userEmail", user.email);
+      sessionStorage.setItem("userName", user.displayName);
+
+      enqueueSnackbar('Login success! welcome back ' + user.displayName, {
+        variant: 'success',
+        action: (key) => (
+          <MIconButton size="small" onClick={() => closeSnackbar(key)}>
+            <Icon icon={closeFill} />
+          </MIconButton>
+        )
+      });
+
+
+      history('/dashboard', { replace: true });
+
+
+    }).catch((err) => {
+      console.error(err);
+      enqueueSnackbar('Login failed : ' + err, {
+        variant: 'error',
+        action: (key) => (
+          <MIconButton size="small" onClick={() => closeSnackbar(key)}>
+            <Icon icon={closeFill} />
+          </MIconButton>
+        )
+      });
+    });
+
+
+
+  };
 
   const LoginSchema = Yup.object().shape({
     email: Yup.string().email('Email must be a valid email address').required('Email is required'),
@@ -50,20 +105,26 @@ export default function LoginForm() {
     validationSchema: LoginSchema,
     onSubmit: async (values, { setErrors, setSubmitting, resetForm }) => {
       try {
-        await login(values.email, values.password);
-        enqueueSnackbar('Login success', {
-          variant: 'success',
+        await login(auth, values.email, values.password);
+
+
+        if (isMountedRef.current) {
+          setSubmitting(false);
+        }
+
+        resetForm()
+
+
+      } catch (error) {
+        console.error(error);
+        enqueueSnackbar('Login failed : ' + error, {
+          variant: 'error',
           action: (key) => (
             <MIconButton size="small" onClick={() => closeSnackbar(key)}>
               <Icon icon={closeFill} />
             </MIconButton>
           )
         });
-        if (isMountedRef.current) {
-          setSubmitting(false);
-        }
-      } catch (error) {
-        console.error(error);
         resetForm();
         if (isMountedRef.current) {
           setSubmitting(false);
