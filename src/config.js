@@ -1,12 +1,12 @@
 export const firebaseConfig = {
-  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
-  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
-  databaseURL: process.env.REACT_APP_FIREBASE_DATABASE_URL,
-  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
-  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
-  appId: process.env.REACT_APP_FIREBASE_APPID,
-  measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID
+  apiKey: "AIzaSyBSEx2-ykPTb70keLZh3LAuDtQT2VyCsco",
+  authDomain: "evencloud-26d32.firebaseapp.com",
+  databaseURL: "https://evencloud-26d32.firebaseio.com",
+  projectId: "evencloud-26d32",
+  storageBucket: "evencloud-26d32.appspot.com",
+  messagingSenderId: "599725599274",
+  appId: "1:599725599274:web:8f9a716ca577fc72a1f153",
+  measurementId: "G-VSJNQ5LYK5"
 };
 
 export const cognitoConfig = {

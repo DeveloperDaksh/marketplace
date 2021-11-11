@@ -49,6 +49,8 @@ const ContentStyle = styled('div')(({ theme }) => ({
 export default function Register() {
   const { method } = useAuth();
   const [activeTab, setActive] = useState('freelancer');
+  const [terms, setTerms] = useState('false');
+
   const navLink = {
     background: '#fff',
     borderRadius: '3px',
@@ -91,7 +93,7 @@ export default function Register() {
                         border: '1px solid #FF5B37',
                         padding: '0.75rem 1rem'
                       } : navLink}
-                      onClick={function noRefCheck() {
+                      onClick={() => {
                         setActive('freelancer')
                       }}
                     >
@@ -108,7 +110,7 @@ export default function Register() {
                         border: '1px solid #FF5B37',
                         padding: '0.75rem 1rem'
                       } : navLink}
-                      onClick={function noRefCheck() {
+                      onClick={() => {
                         setActive('company')
                       }}
                     >
@@ -124,20 +126,9 @@ export default function Register() {
           </Stack>
 
 
-          <RegisterForm />
+          <RegisterForm category={activeTab} />
 
-          <Typography variant="body2" align="left" sx={{ color: 'text.secondary', mt: 3 }}>
-            <Checkbox checked={true} />
-            By registering, I agree to Minimal&nbsp;
-            <Link underline="always" sx={{ color: 'text.primary' }}>
-              Terms of Service
-            </Link>
-            &nbsp;and&nbsp;
-            <Link underline="always" sx={{ color: 'text.primary' }}>
-              Privacy Policy
-            </Link>
-            .
-          </Typography>
+
 
           <AuthFirebaseSocials />
           <MHidden width="smUp">

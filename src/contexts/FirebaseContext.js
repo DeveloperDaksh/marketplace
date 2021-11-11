@@ -1,18 +1,26 @@
 import PropTypes from 'prop-types';
 import { createContext, useEffect, useReducer, useState } from 'react';
-import firebase from 'firebase/app';
-import 'firebase/auth';
-import 'firebase/firestore';
+import { initializeApp } from 'firebase/app';
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth';
+import { getFirestore, collection, addDoc, doc, getDoc } from 'firebase/firestore';
 import { firebaseConfig } from '../config';
 
 // ----------------------------------------------------------------------
 
 const ADMIN_EMAILS = ['demo@minimals.cc'];
 
+/*
+
 if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig);
   firebase.firestore();
 }
+const app = initializeApp(firebaseConfig);
+const auth = getAuth()
+const database = getDatabase() */
+const app = initializeApp(firebaseConfig);
+const auth = getAuth()
+const db = getFirestore(app);
 
 const initialState = {
   isAuthenticated: false,
@@ -55,19 +63,17 @@ function AuthProvider({ children }) {
 
   useEffect(
     () =>
-      firebase.auth().onAuthStateChanged((user) => {
+      onAuthStateChanged((user) => {
         if (user) {
-          const docRef = firebase.firestore().collection('users').doc(user.uid);
-          docRef
-            .get()
-            .then((doc) => {
-              if (doc.exists) {
-                setProfile(doc.data());
-              }
-            })
-            .catch((error) => {
-              console.error(error);
-            });
+          const docRef = doc(db, 'users', user.uid);
+
+          getDoc(docRef).then((doc) => {
+            if (doc.exists) {
+              setProfile(doc.data());
+            }
+          }).catch((error) => {
+            console.error(error);
+          });
 
           dispatch({
             type: 'INITIALISE',
@@ -83,48 +89,42 @@ function AuthProvider({ children }) {
     [dispatch]
   );
 
-  const login = (email, password) => firebase.auth().signInWithEmailAndPassword(email, password);
+  const login = (email, password) => signInWithEmailAndPassword(auth, email, password);
 
   const loginWithGoogle = () => {
-    const provider = new firebase.auth.GoogleAuthProvider();
-    return firebase.auth().signInWithPopup(provider);
+    // const provider = new firebase.auth.GoogleAuthProvider();
+    // return firebase.auth().signInWithPopup(provider);
   };
 
   const loginWithFaceBook = () => {
-    const provider = new firebase.auth.FacebookAuthProvider();
-    return firebase.auth().signInWithPopup(provider);
+    // const provider = new firebase.auth.FacebookAuthProvider();
+    // return firebase.auth().signInWithPopup(provider);
   };
 
   const loginWithTwitter = () => {
-    const provider = new firebase.auth.TwitterAuthProvider();
-    return firebase.auth().signInWithPopup(provider);
+    // const provider = new firebase.auth.TwitterAuthProvider();
+    // return firebase.auth().signInWithPopup(provider);
   };
 
-  const register = (email, password, firstName, lastName) =>
-    firebase
-      .auth()
-      .createUserWithEmailAndPassword(email, password)
-      .then((res) => {
-        firebase
-          .firestore()
-          .collection('users')
-          .doc(res.user.uid)
-          .set({
-            uid: res.user.uid,
-            email,
-            displayName: `${firstName} ${lastName}`
-          });
-      });
+  const register = (email, password, username, category) => createUserWithEmailAndPassword(auth, email, password).then((res) => {
+    const user = res.user;
+    addDoc(collection(db, "users"), {
+      uid: user.uid,
+      email,
+      username,
+      category
+    });
+  });
 
   const logout = async () => {
-    await firebase.auth().signOut();
+    // await firebase.auth().signOut();
   };
 
   const resetPassword = async (email) => {
-    await firebase.auth().sendPasswordResetEmail(email);
+    // await firebase.auth().sendPasswordResetEmail(email);
   };
 
-  const auth = { ...state.user };
+  const Auth = { ...state.user };
 
   return (
     <AuthContext.Provider
@@ -132,12 +132,12 @@ function AuthProvider({ children }) {
         ...state,
         method: 'firebase',
         user: {
-          id: auth.uid,
-          email: auth.email,
-          photoURL: auth.photoURL || profile?.photoURL,
-          displayName: auth.displayName || profile?.displayName,
-          role: ADMIN_EMAILS.includes(auth.email) ? 'admin' : 'user',
-          phoneNumber: auth.phoneNumber || profile?.phoneNumber || '',
+          id: Auth.uid,
+          email: Auth.email,
+          photoURL: Auth.photoURL || profile?.photoURL,
+          displayName: Auth.displayName || profile?.displayName,
+          role: ADMIN_EMAILS.includes(Auth.email) ? 'admin' : 'user',
+          phoneNumber: Auth.phoneNumber || profile?.phoneNumber || '',
           country: profile?.country || '',
           address: profile?.address || '',
           state: profile?.state || '',
