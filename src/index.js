@@ -36,14 +36,6 @@ import { BrowserRouter } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import { Provider as ReduxProvider } from 'react-redux';
 import { PersistGate } from 'redux-persist/lib/integration/react';
-// material
-import AdapterDateFns from '@material-ui/lab/AdapterDateFns';
-import LocalizationProvider from '@material-ui/lab/LocalizationProvider';
-// redux
-import { store, persistor } from './redux/store';
-// contexts
-import { SettingsProvider } from './contexts/SettingsContext';
-// components
 import LoadingScreen from './components/LoadingScreen';
 
 // Using for Auth (Check doc https://minimals.cc/docs/authentication)
